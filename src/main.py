@@ -11,9 +11,7 @@ from sys import stdout
 from typing import Optional
 from typing import Tuple
 
-DVERSION = "0.0.0"
-DFILE = "vcpkg.json"
-INDENT = 2
+VERSION = "0.0.0"
 
 parser = argparse.ArgumentParser(description="version manipulating utility")
 sub = parser.add_subparsers(dest="command")
@@ -21,7 +19,7 @@ sub = parser.add_subparsers(dest="command")
 # fmt: off
 pget = sub.add_parser(
     "get",
-    description=f"print current version from the file or {DVERSION} in case of errors",
+    description=f"print current version from the file or {VERSION} in case of errors",
 )
 pget.add_argument(
     "-f", "--file",
@@ -147,7 +145,7 @@ class Context:
         self.file.seek(0)
         self.file.truncate()
         json.dump(self.data, self.file, indent=INDENT)
-        self.file.write("\n") # trailing line
+        self.file.write("\n")  # trailing line
         self.file.close()
 
     def get_version(self) -> Optional[Tuple[int, int, int]]:
@@ -179,7 +177,7 @@ def main(ctx, args):
         ver = ctx.get_version()
 
         if ver == None:
-            stdout.write(DVERSION)
+            stdout.write(VERSION)
         else:
             stdout.write(".".join(map(str, ver)))
 

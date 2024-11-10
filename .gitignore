@@ -1,4 +1,7 @@
 .vscode
 .idea
 
+.venv
+.mypy_cache
+
 .DS_Store

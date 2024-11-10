@@ -1,0 +1,9 @@
+version: 0.0.0
+
+template: "$major.$minor.$patch"
+
+source:
+  - file: ./src/main.py
+    template: VERSION = "$version"
+  - file: ./pyproject.toml
+    template: version = "$version"

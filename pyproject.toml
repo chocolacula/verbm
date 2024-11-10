@@ -1,0 +1,18 @@
+[project]
+version = "0.0.0"
+name = "verbum"
+description = "Language agnostic version bump tool"
+requires-python = ">=3.10"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [{ name = "Maxim Voloshin", email = "mvolloshin@gmail.com" }]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/chocolacula/verbum"

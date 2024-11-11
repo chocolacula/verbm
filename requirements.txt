@@ -1,0 +1,8 @@
+build==1.2.2
+mypy==1.13.0
+mypy-extensions==1.0.0
+packaging==24.2
+pyproject_hooks==1.2.0
+PyYAML==6.0.2
+types-PyYAML==6.0.12.20240917
+typing_extensions==4.12.2

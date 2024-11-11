@@ -1,7 +1,10 @@
-.vscode
+.vscode/*
+!.vscode/settings.json
+
 .idea
 
 .venv
 .mypy_cache
+__pycache__
 
 .DS_Store

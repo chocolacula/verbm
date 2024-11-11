@@ -11,99 +11,11 @@ from sys import stdout
 from typing import Optional
 from typing import Tuple
 
-VERSION = "0.0.0"
+from verbum.clap import parser
 
-parser = argparse.ArgumentParser(description="version manipulating utility")
-sub = parser.add_subparsers(dest="command")
+VERSION = "0.0.1"
 
-# fmt: off
-pget = sub.add_parser(
-    "get",
-    description=f"print current version from the file or {VERSION} in case of errors",
-)
-pget.add_argument(
-    "-f", "--file",
-    help="specify manifest file"
-)
-
-pset = sub.add_parser(
-    "set",
-    description="write version to the file"
-)
-pset.add_argument(
-    "version",
-    help="semantic version in <major.minor.patch> format",
-    type=str
-)
-pset.add_argument(
-    "-t", "--tag",
-    help="add a tag with version",
-    action="store_true"
-)
-pset.add_argument(
-    "-p", "--push",
-    help="push changes",
-    action="store_true"
-)
-pset.add_argument(
-    "-f", "--file",
-    help="specify manifest file"
-)
-
-version_components = ["major", "minor", "patch"]
-
-pup = sub.add_parser(
-    "up",
-    description="up version"
-)
-pup.add_argument(
-    "component",
-    help="component of semantic version",
-    type=str,
-    choices=version_components,
-)
-pup.add_argument(
-    "-t", "--tag",
-    help="add a tag with version",
-    action="store_true"
-)
-pup.add_argument(
-    "-p", "--push",
-    help="push changes",
-    action="store_true"
-)
-pup.add_argument(
-    "-f", "--file",
-    help="specify manifest file"
-)
-
-pdown = sub.add_parser(
-    "down",
-    description="down version"
-)
-pdown.add_argument(
-    "component",
-    help="component of semantic version",
-    type=str,
-    choices=version_components,
-)
-pdown.add_argument(
-    "-t", "--tag",
-    help="add a tag with version",
-    action="store_true"
-)
-pdown.add_argument(
-    "-p", "--push",
-    help="push changes",
-    action="store_true"
-)
-pdown.add_argument(
-    "-f", "--file",
-    help="specify manifest file"
-)
-# fmt: on
-
-
+"""
 def parse_version(string) -> Optional[Tuple[int, int, int]]:
     chunks = string.split(".")
 
@@ -157,19 +69,6 @@ class Context:
         else:
             stderr.write("Cannot find 'version' field in the file\n")
             return None
-
-    def push(self, message, tag):
-        subprocess.Popen(["git", "add", "vcpkg.json"]).wait()
-        subprocess.Popen(["git", "commit", "-m", message]).wait()
-        subprocess.Popen(["git", "push"]).wait()
-
-        if tag:
-            subprocess.Popen(["git", "tag", self.data["version"]]).wait()
-            subprocess.Popen(["git", "push", "--tags"]).wait()
-
-
-args = parser.parse_args()
-ctx = Context(args.file)
 
 
 def main(ctx, args):
@@ -240,7 +139,13 @@ def main(ctx, args):
         if args.push:
             o = ".".join(map(str, ver))
             ctx.push(f"version down from {o} to {v}", args.tag)
+"""
 
 
-if __name__ == "__main__":
-    main(ctx, args)
+def run():
+    # parse command line arguments
+    args = parser.parse_args()
+
+    if args.version:
+        print(VERSION)
+        exit(0)

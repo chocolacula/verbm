@@ -4,7 +4,7 @@ name = "verbum"
 description = "Language agnostic version bump tool"
 requires-python = ">=3.10"
 readme = "README.md"
-license = "Apache-2.0"
+license = { text = "Apache License (2.0)" }
 authors = [{ name = "Maxim Voloshin", email = "mvolloshin@gmail.com" }]
 
 classifiers = [
@@ -16,3 +16,10 @@ dependencies = []
 
 [project.urls]
 Homepage = "https://github.com/chocolacula/verbum"
+
+[project.scripts]
+verbum = "verbum.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

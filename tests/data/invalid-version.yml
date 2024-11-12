@@ -1,0 +1,4 @@
+# wrong name of version field
+ver: "version"
+
+template: "$major.$minor.$patch"

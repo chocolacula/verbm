@@ -1,0 +1,20 @@
+version: 0.0.0
+
+template: "$major.$minor.$patch"
+
+source:
+  - file: ./src/verbum/run.py
+    template: VERSION = "$version"
+  - file: ./pyproject.toml
+    template: version = "$version"
+
+version_control:
+  type: git
+  matcher:
+    major:
+      - '(?i)^BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: '
+    minor:
+      - '^feat(ure)? ?(\(( ?\w)+\))?: '
+    patch:
+      - '^(hot)?fix ?(\(( ?\w)+\))?: '
+      - '^refactor(ing)? ?(\(( ?\w)+\))?: '

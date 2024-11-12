@@ -1,32 +1,40 @@
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import List, Optional
 import os
-from typing import List
+
+import src.verbum.config.version_control as vc
+
 import yaml
 
 DEFAULT_FILENAMES = ["version.yml", "version.yaml"]
 
 
+@dataclass
 class Source:
     file: str
     template: str
 
-    def __init__(self, file, template):
-        self.file = file
-        self.template = template
 
-
+@dataclass(frozen=True)
 class Config:
     path: str
     version: str
     template: str
-    source: List[Source]
+    source: List[Source] = field(default_factory=list)
+    version_control: Optional[vc.VersionControl] = None
 
-    def __init__(self, path):
+    @staticmethod
+    def from_file(path: str) -> Optional[Config]:
         path = Config.__path_or_default(path)
-        self.path = path
 
-        with open(self.path, "r") as f:
+        with open(path, "r") as f:
             data = yaml.safe_load(f)
-            self.__dict__.update(data)
+            data["path"] = path  # required field
+            c = Config(**data)
+            return c
+
+        return None
 
     @staticmethod
     def __path_or_default(path: str | None) -> str:

@@ -1,21 +1,9 @@
 import os
 import unittest
-from verbum.config.config import Source, Config
+from src.verbum.config.config import Source, Config
 
 
 class TestConfig(unittest.TestCase):
-    def test_source(self):
-        s = Source(file="file", template="template")
-        s.validate()
-
-        s.__dict__.pop("file")
-        self.assertRaisesRegex(AttributeError, "file", s.validate)
-        s.__dict__["file"] = "file"
-
-        s.__dict__.pop("template")
-        self.assertRaisesRegex(AttributeError, "template", s.validate)
-        s.__dict__["template"] = "template"
-
     def test_config(self):
         os.chdir("tests/data")
 

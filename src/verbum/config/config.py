@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 import os
 
-import src.verbum.config.version_control as vc
+from src.verbum.config.version_control import VersionControl
 
 import yaml
 
@@ -22,7 +22,13 @@ class Config:
     version: str
     template: str
     source: List[Source] = field(default_factory=list)
-    version_control: Optional[vc.VersionControl] = None
+    version_control: Optional[VersionControl] = None
+
+    def __post_init__(self):
+        if self.version_control:
+            object.__setattr__(
+                self, "version_control", VersionControl(**self.version_control)
+            )
 
     @staticmethod
     def from_file(path: str) -> Optional[Config]:

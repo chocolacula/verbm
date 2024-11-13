@@ -1,9 +1,5 @@
 import sys
 import os
-import subprocess
-import json
-import argparse
-import enum
 
 from sys import stderr
 from sys import stdout
@@ -12,6 +8,9 @@ from typing import Optional
 from typing import Tuple
 
 from verbum.clap import parser
+from verbum.config.config import Config
+from verbum.version import Version
+from verbum.source import SourceManager
 
 VERSION = "0.0.1"
 
@@ -71,25 +70,6 @@ class Context:
             return None
 
 
-def main(ctx, args):
-    if args.command == "get":
-        ver = ctx.get_version()
-
-        if ver == None:
-            stdout.write(VERSION)
-        else:
-            stdout.write(".".join(map(str, ver)))
-
-    elif args.command == "set":
-        ver = parse_version(args.version)
-
-        if ver == None:
-            return
-
-        v = ".".join(map(str, ver))
-        ctx.write_version(v)
-        if args.push:
-            ctx.push(f"set version to {v}", args.tag)
 
     elif args.command == "up":
         ver = ctx.get_version()
@@ -144,8 +124,25 @@ def main(ctx, args):
 
 def run():
     # parse command line arguments
-    args = parser.parse_args()
+    args = parser().parse_args()
 
     if args.version:
         print(VERSION)
+        exit(0)
+
+    cfg = Config.from_file(args.file)
+
+    if args.command == "get":
+        print(cfg.version)
+        exit(0)
+
+    v = Version(format=cfg.template)
+    v.parse(cfg.version)
+
+    source = SourceManager(cfg.source)
+    source.validate(v)
+
+    if args.command == "set":
+        v.parse(args.new_version)
+        source.update(v)
         exit(0)

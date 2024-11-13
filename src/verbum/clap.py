@@ -1,13 +1,13 @@
-import argparse
-
-parser = argparse.ArgumentParser(description="version manipulating utility")
+from argparse import ArgumentParser
 
 
-def __init__():
-    sub = parser.add_subparsers(dest="command")
+def parser() -> ArgumentParser:
+    p = ArgumentParser(description="version manipulating utility")
+
+    sub = p.add_subparsers(dest="command")
 
     # fmt: off
-    parser.add_argument(
+    p.add_argument(
         "-v", "--version",
         help="print verbum version",
         action="store_true",
@@ -101,3 +101,5 @@ def __init__():
         help="specify manifest file"
     )
     # fmt: on
+
+    return p

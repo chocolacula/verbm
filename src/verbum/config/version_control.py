@@ -12,38 +12,36 @@ class Matcher:
     patch: List[re.Pattern] = field(default_factory=list)
 
     def __post_init__(self):
-        major = self.major
-        if major == []:
-            major = [
+        object.__setattr__(self, "major", [re.compile(r) for r in self.major])
+        object.__setattr__(self, "minor", [re.compile(r) for r in self.minor])
+        object.__setattr__(self, "patch", [re.compile(r) for r in self.patch])
+
+    @staticmethod
+    def default() -> Matcher:
+        raw = {
+            "major": [
                 r"^(hot)?fix ?(\(( ?\w)+\))?!: ",
                 r"^feat(ure)? ?(\(( ?\w)+\))?!: ",
                 r"^refactor(ing)? ?(\(( ?\w)+\))?!: ",
                 r"(?i)^BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: ",
-            ]
-        object.__setattr__(self, "major", [re.compile(r) for r in major])
-
-        minor = self.minor
-        if minor == []:
-            minor = [
+            ],
+            "minor": [
                 r"^feat(ure)? ?(\(( ?\w)+\))?: ",
-            ]
-        object.__setattr__(self, "minor", [re.compile(r) for r in minor])
-
-        patch = self.patch
-        if patch == []:
-            patch = [
+            ],
+            "patch": [
                 r"^(hot)?fix ?(\(( ?\w)+\))?: ",
                 r"^refactor(ing)? ?(\(( ?\w)+\))?: ",
-            ]
-        object.__setattr__(self, "patch", [re.compile(r) for r in patch])
+            ],
+        }
+        return Matcher(**raw)  # type: ignore
 
 
 @dataclass(frozen=True)
 class Git:
-    username: str
-    email: str
-    commit_msg: str
-    tag: str
+    username: Optional[str] = None
+    email: Optional[str] = None
+    commit_msg: Optional[str] = None
+    tag: Optional[str] = None
 
 
 class Type(Enum):
@@ -61,18 +59,17 @@ class Type(Enum):
 
 @dataclass(frozen=True)
 class VersionControl:
-    type: Optional[Type] = Type.GIT
-    matcher: Optional[Matcher] = None
+    type: Type = Type.GIT
+    matcher: Matcher = field(default_factory=Matcher.default)
     git: Optional[Git] = None
     # hg: Optional[Hg] = None
     # svn: Optional[Svn] = None
 
     def __post_init__(self):
-        if self.type:
+        if isinstance(self.type, str):
             object.__setattr__(self, "type", Type.from_str(self.type))
 
-        if self.matcher:
+        if isinstance(self.matcher, dict):
             object.__setattr__(self, "matcher", Matcher(**self.matcher))
 
-        if self.git:
-            object.__setattr__(self, "git", Git(**self.git))
+        object.__setattr__(self, "git", Git(**(self.git or {})))

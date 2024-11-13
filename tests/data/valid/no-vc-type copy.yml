@@ -9,7 +9,6 @@ source:
     template: version = "$version"
 
 version_control:
-  type: git
   matcher:
     major:
       - '(?i)^BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: '

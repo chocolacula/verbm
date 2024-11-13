@@ -1,14 +1,18 @@
 import os
 import unittest
-from src.verbum.config.config import Source, Config
+from src.verbum.config.config import Config
 
 
 class TestConfig(unittest.TestCase):
     def test_config(self):
         os.chdir("tests/data")
 
-        # doesn't raise
-        _ = Config.from_file("valid.yml")
+        valid_dir = "valid"
+        filenames = next(os.walk(valid_dir), (None, None, []))[2]
+
+        for filename in filenames:
+            # doesn't raise
+            _ = Config.from_file(valid_dir + "/" + filename)
 
         self.assertRaises(Exception, Config.from_file)
 

@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 import os
 
-from src.verbum.config.version_control import VersionControl
+from verbum.config.version_control import VersionControl
 
 import yaml
 
@@ -18,6 +18,11 @@ class Source:
 
 @dataclass(frozen=True)
 class Config:
+    """
+    Config is a root container of all configuration data, responsible for
+    parsing the yaml file and storing data from it in a structured way.
+    """
+
     path: str
     version: str
     template: str
@@ -25,10 +30,9 @@ class Config:
     version_control: Optional[VersionControl] = None
 
     def __post_init__(self):
-        if self.version_control:
-            object.__setattr__(
-                self, "version_control", VersionControl(**self.version_control)
-            )
+        object.__setattr__(
+            self, "version_control", VersionControl(**(self.version_control or {}))
+        )
 
     @staticmethod
     def from_file(path: str) -> Optional[Config]:

@@ -1,18 +1,10 @@
-import sys
-import os
-
-from sys import stderr
-from sys import stdout
-
-from typing import Optional
-from typing import Tuple
-
+import copy
 from verbum.clap import parser
 from verbum.config.config import Config
 from verbum.version import Version
 from verbum.source import SourceManager
 
-VERSION = "0.0.1"
+VERSION = "0.0.0"
 
 """
 def parse_version(string) -> Optional[Tuple[int, int, int]]:
@@ -132,17 +124,19 @@ def run():
 
     cfg = Config.from_file(args.file)
 
-    if args.command == "get":
-        print(cfg.version)
-        exit(0)
-
     v = Version(format=cfg.template)
     v.parse(cfg.version)
 
-    source = SourceManager(cfg.source)
-    source.validate(v)
+    if args.command == "get":
+        print(v)
+        exit(0)
+
+    source = SourceManager(cfg.path, cfg.source)
+    # source.validate(v)
 
     if args.command == "set":
-        v.parse(args.new_version)
-        source.update(v)
+        v2 = copy.copy(v)
+        v2.parse(args.new_version)
+
+        source.replace(v, v2)
         exit(0)

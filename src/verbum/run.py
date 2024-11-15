@@ -7,28 +7,6 @@ from verbum.source import SourceManager
 VERSION = "0.0.0"
 
 """
-def parse_version(string) -> Optional[Tuple[int, int, int]]:
-    chunks = string.split(".")
-
-    if len(chunks) != 3:
-        stderr.write(f"version {string} is invalid\n")
-        return None
-
-    try:
-        major = int(chunks[0])
-        minor = int(chunks[1])
-        patch = int(chunks[2])
-    except ValueError:
-        stderr.write(f"version {string} is invalid\n")
-        return None
-
-    if major < 0 or minor < 0 or patch < 0:
-        stderr.write(f"version {string} is invalid\n")
-        return None
-
-    return (major, minor, patch)
-
-
 class Context:
     def __init__(self, filepath):
         if filepath == None:
@@ -132,11 +110,18 @@ def run():
         exit(0)
 
     source = SourceManager(cfg.path, cfg.source)
-    # source.validate(v)
+    if not source.consistent(v):
+        raise Exception("version is not consistent accross all files")
+
+    if args.command == "validate":
+        # already checked anyway, just print result
+        print(f"version {v} is consistent accors all files")
+        exit(0)
 
     if args.command == "set":
         v2 = copy.copy(v)
         v2.parse(args.new_version)
 
         source.replace(v, v2)
+        print(f"version was set to {v2}")
         exit(0)

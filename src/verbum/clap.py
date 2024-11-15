@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 
 
 def parser() -> ArgumentParser:
-    p = ArgumentParser(description="version manipulating utility")
+    p = ArgumentParser(description="version manipulating tool")
 
     sub = p.add_subparsers(dest="command")
 
@@ -13,6 +13,7 @@ def parser() -> ArgumentParser:
         action="store_true",
         default=False
     )
+
 
     pget = sub.add_parser(
         "get",
@@ -29,7 +30,7 @@ def parser() -> ArgumentParser:
         description="write version to the file"
     )
     pset.add_argument(
-        "version",
+        "new_version",
         help="semantic version in <major.minor.patch> format",
         type=str
     )
@@ -44,6 +45,15 @@ def parser() -> ArgumentParser:
         action="store_true"
     )
     pset.add_argument(
+        "-f", "--file",
+        help="specify configuration file"
+    )
+
+    p_validate = sub.add_parser(
+        "validate",
+        description="check that all files contains the same version"
+    )
+    p_validate.add_argument(
         "-f", "--file",
         help="specify configuration file"
     )

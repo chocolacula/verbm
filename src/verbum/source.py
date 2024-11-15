@@ -24,6 +24,32 @@ class SourceManager:
 
         self.sources = sources
 
+    def consistent(self, version: Version) -> bool:
+        if not self.__contains(self.cfg_path, version):
+            return False
+
+        for src in self.sources:
+            fn = os.path.join(self.root, src.file)
+
+            if not self.__contains(fn, version):
+                return False
+
+        return True
+
+    def __contains(self, path: str, version: Version) -> bool:
+        """
+        Checks the file with corresponding path contains specified version
+        """
+        if not os.path.isfile(path):
+            raise Exception(f"cannot find: {path}")
+
+        with open(path, "r+") as file:
+            if file.read().find(str(version)) < 1:
+                print(f"file: {self.cfg_path} doesn't contain version: {version}")
+                return False
+
+        return True
+
     def replace(self, old_version: Version, new_version: Version):
         with open(self.cfg_path, "r+") as file:
             content = file.read()

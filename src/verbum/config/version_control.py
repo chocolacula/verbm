@@ -20,17 +20,17 @@ class Matcher:
     def default() -> Matcher:
         raw = {
             "major": [
-                r"^(hot)?fix ?(\(( ?\w)+\))?!: ",
-                r"^feat(ure)? ?(\(( ?\w)+\))?!: ",
-                r"^refactor(ing)? ?(\(( ?\w)+\))?!: ",
-                r"(?i)^BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: ",
+                r"^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?!: ",
+                r"^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?!: ",
+                r"^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?!: ",
+                r"(?i)^(\* ?)?BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: ",
             ],
             "minor": [
-                r"^feat(ure)? ?(\(( ?\w)+\))?: ",
+                r"^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?: ",
             ],
             "patch": [
-                r"^(hot)?fix ?(\(( ?\w)+\))?: ",
-                r"^refactor(ing)? ?(\(( ?\w)+\))?: ",
+                r"^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?: ",
+                r"^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?: ",
             ],
         }
         return Matcher(**raw)  # type: ignore

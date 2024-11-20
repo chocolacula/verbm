@@ -1,8 +1,12 @@
 import copy
+from string import Template
 from verbum.clap import parser
 from verbum.config.config import Config
+from verbum.config.version_control import Type as VcType
 from verbum.version import Version
 from verbum.source import SourceManager
+from verbum.version_control.git import Git
+from verbum.version_control.interface import VersionControl
 
 VERSION = "0.0.0"
 
@@ -33,9 +37,15 @@ def run():
         print(f"version {v} is consistent accors all files")
         exit(0)
 
-    # we are reade to check all other commands
+    # we are ready to check all other commands
     v2 = copy.copy(v)
     msg = ""
+
+    vc: VersionControl
+    if cfg.version_control.type == VcType.GIT:  # always true for now
+        vc = Git()
+    else:
+        raise Exception("unexpected version control type")
 
     if args.command == "set":
         v2.parse(args.new_version)
@@ -69,3 +79,22 @@ def run():
 
     print(msg)
     source.replace(v, v2)
+
+    if args.commit:
+        vc.add(*source.files())
+
+        msg = Template(cfg.version_control.commit.message).substitute(
+            version=str(v), new_version=str(v2)
+        )
+        vc.commit(
+            msg,
+            username=cfg.version_control.commit.username,
+            email=cfg.version_control.commit.email,
+        )
+
+    if args.tag:
+        tag = Template(cfg.version_control.tag).substitute(new_version=str(v2))
+        vc.tag(tag)
+
+    if args.push:
+        vc.push(args.tag)

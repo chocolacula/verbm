@@ -1,6 +1,17 @@
 from argparse import ArgumentParser
 
 
+def __add_file(p: ArgumentParser):
+    p.add_argument("-f", "--file", help="specify configuration file")
+
+
+def __add_common(p: ArgumentParser):
+    p.add_argument("-c", "--commit", help="commit changes", action="store_true")
+    p.add_argument("-t", "--tag", help="add a tag with version", action="store_true")
+    p.add_argument("-p", "--push", help="push changes", action="store_true")
+    __add_file(p)
+
+
 def parser() -> ArgumentParser:
     p = ArgumentParser(description="version manipulating tool")
 
@@ -19,10 +30,7 @@ def parser() -> ArgumentParser:
         "get",
         description=f"print current version",
     )
-    pget.add_argument(
-        "-f", "--file",
-        help="specify configuration file"
-    )
+    __add_file(pget)
 
 
     pset = sub.add_parser(
@@ -34,31 +42,16 @@ def parser() -> ArgumentParser:
         help="semantic version in <major.minor.patch> format",
         type=str
     )
-    pset.add_argument(
-        "-t", "--tag",
-        help="add a tag with version",
-        action="store_true"
-    )
-    pset.add_argument(
-        "-p", "--push",
-        help="push changes",
-        action="store_true"
-    )
-    pset.add_argument(
-        "-f", "--file",
-        help="specify configuration file"
-    )
+    __add_common(pset)
 
-    p_validate = sub.add_parser(
+
+    pval = sub.add_parser(
         "validate",
         description="check that all files contains the same version"
     )
-    p_validate.add_argument(
-        "-f", "--file",
-        help="specify configuration file"
-    )
+    __add_file(pval)
 
-    version_components = ["major", "minor", "patch"]
+    version_components = ["major", "minor", "patch", "auto"]
 
     pup = sub.add_parser(
         "up",
@@ -70,20 +63,7 @@ def parser() -> ArgumentParser:
         type=str,
         choices=version_components,
     )
-    pup.add_argument(
-        "-t", "--tag",
-        help="add a tag with version",
-        action="store_true"
-    )
-    pup.add_argument(
-        "-p", "--push",
-        help="push changes",
-        action="store_true"
-    )
-    pup.add_argument(
-        "-f", "--file",
-        help="specify manifest file"
-    )
+    __add_common(pup)
 
 
     pdown = sub.add_parser(
@@ -96,20 +76,7 @@ def parser() -> ArgumentParser:
         type=str,
         choices=version_components,
     )
-    pdown.add_argument(
-        "-t", "--tag",
-        help="add a tag with version",
-        action="store_true"
-    )
-    pdown.add_argument(
-        "-p", "--push",
-        help="push changes",
-        action="store_true"
-    )
-    pdown.add_argument(
-        "-f", "--file",
-        help="specify manifest file"
-    )
+    __add_common(pdown)
     # fmt: on
 
     return p

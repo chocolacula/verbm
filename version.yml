@@ -7,3 +7,8 @@ source:
     template: VERSION = "$version"
   - file: ./pyproject.toml
     template: version = "$version"
+
+version_control:
+  commit:
+    message: Version bumped from $version to $new_version
+  tag: v$new_version

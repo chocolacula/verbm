@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 
 class VersionControl(ABC):
+    @abstractmethod
+    def add(self, *files: str):
+        pass
 
     @abstractmethod
-    def commit(self, message: str):
+    def commit(self, message: str, username: Optional[str], email: Optional[str]):
         pass
 
     @abstractmethod
@@ -18,4 +21,4 @@ class VersionControl(ABC):
 
     @abstractmethod
     def log(self, from_tag: str) -> List[str]:
-        pass
+        return []

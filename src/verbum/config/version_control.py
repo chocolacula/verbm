@@ -37,11 +37,10 @@ class Matcher:
 
 
 @dataclass(frozen=True)
-class Git:
+class Commit:
     username: Optional[str] = None
     email: Optional[str] = None
-    commit_msg: Optional[str] = None
-    tag: Optional[str] = None
+    message: Optional[str] = None
 
 
 class Type(Enum):
@@ -61,9 +60,8 @@ class Type(Enum):
 class VersionControl:
     type: Type = Type.GIT
     matcher: Matcher = field(default_factory=Matcher.default)
-    git: Optional[Git] = None
-    # hg: Optional[Hg] = None
-    # svn: Optional[Svn] = None
+    commit: Optional[Commit] = None
+    tag: Optional[str] = None
 
     def __post_init__(self):
         if isinstance(self.type, str):
@@ -72,4 +70,4 @@ class VersionControl:
         if isinstance(self.matcher, dict):
             object.__setattr__(self, "matcher", Matcher(**self.matcher))
 
-        object.__setattr__(self, "git", Git(**(self.git or {})))
+        object.__setattr__(self, "commit", Commit(**(self.commit or {})))

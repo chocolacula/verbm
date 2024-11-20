@@ -10,6 +10,7 @@ from verbum.version import Version
 class SourceManager:
     """
     SourceManager is responsible for updating versions across source files.
+    It knows absolute path to each file including the config and can return them.
     """
 
     cfg_path: str
@@ -17,9 +18,9 @@ class SourceManager:
     sources: List[Source]
 
     def __init__(self, cfg_path: str, sources: List[Source]):
-        self.cfg_path = cfg_path
+        self.cfg_path = os.path.realpath(cfg_path)
 
-        root = os.path.dirname(os.path.realpath(cfg_path))
+        root = os.path.dirname(self.cfg_path)
         self.root = root
 
         self.sources = sources
@@ -86,3 +87,11 @@ class SourceManager:
                 file.seek(0)
                 file.truncate()
                 file.write(content)
+
+    def files(self) -> List[str]:
+        all = [self.cfg_path]
+
+        for s in self.sources:
+            all.append(os.path.realpath(os.path.join(self.root, s.file)))
+
+        return all

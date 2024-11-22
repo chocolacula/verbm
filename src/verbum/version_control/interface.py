@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import re
 from typing import List, Optional
 
 
@@ -20,5 +21,5 @@ class VersionControl(ABC):
         pass
 
     @abstractmethod
-    def log(self, from_tag: str) -> List[str]:
+    def log(self, from_tag: str, file_filters: List[re.Pattern]) -> List[str]:
         return []

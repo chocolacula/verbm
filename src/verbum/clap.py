@@ -51,7 +51,8 @@ def parser() -> ArgumentParser:
     )
     __add_file(pval)
 
-    version_components = ["major", "minor", "patch", "auto"]
+
+    version_components = ["major", "minor", "patch"]
 
     pup = sub.add_parser(
         "up",
@@ -61,7 +62,14 @@ def parser() -> ArgumentParser:
         "component",
         help="component of semantic version",
         type=str,
-        choices=version_components,
+        choices=version_components+["auto"],
+    )
+    pup.add_argument(
+        "-F", "--filter",
+        nargs='+',
+        type=str,
+        default=[],
+        help="optional regex file filter for a commit",
     )
     __add_common(pup)
 

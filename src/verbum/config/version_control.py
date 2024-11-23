@@ -64,6 +64,7 @@ class VersionControl:
     tag: Optional[str] = None
 
     def __post_init__(self):
-        object.__setattr__(self, "type", Type.from_str(self.type))  # type: ignore
+        if isinstance(self.type, str):
+            object.__setattr__(self, "type", Type.from_str(self.type))
         object.__setattr__(self, "matcher", Matcher(**self.matcher))  # type: ignore
         object.__setattr__(self, "commit", Commit(**(self.commit or {})))  # type: ignore

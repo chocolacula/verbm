@@ -78,7 +78,9 @@ def run():
             filters = list(map(re.compile, args.filter))
             tag = Template(cfg.version_control.tag).substitute(new_version=str(v))
 
-            component = __to_component(vc.log(tag, filters))
+            component = __to_component(
+                vc.log(tag, filters), cfg.version_control.matcher
+            )
 
             if component == None:
                 raise Exception("nothing to up")

@@ -30,7 +30,7 @@ class Config:
     version_control: Optional[VersionControl] = None
 
     def __post_init__(self):
-        object.__setattr__(self, "source", [Source(**s) for s in self.source])
+        object.__setattr__(self, "source", [Source(**s) for s in self.source])  # type: ignore
         object.__setattr__(
             self, "version_control", VersionControl(**(self.version_control or {}))
         )

@@ -2,6 +2,9 @@ name: mypy
 
 on:
   push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   mypy:
@@ -14,4 +17,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run
-        run: mypy --ignore-missing-imports .
+        run: |
+          mypy \
+            --explicit-package-bases \
+            --ignore-missing-imports \
+            --check-untyped-defs \
+            .

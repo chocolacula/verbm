@@ -1,5 +1,7 @@
 import os
 import unittest
+
+from pydantic import ValidationError
 from src.verbum.config.config import Config
 
 
@@ -17,10 +19,10 @@ class TestConfig(unittest.TestCase):
         self.assertRaises(Exception, Config.from_file)
 
         self.assertRaisesRegex(  #
-            TypeError, "ver", Config.from_file, "invalid-version.yml"
+            ValidationError, "ver", Config.from_file, "invalid-version.yml"
         )
         self.assertRaisesRegex(  #
-            TypeError, "template", Config.from_file, "invalid-template.yml"
+            ValidationError, "template", Config.from_file, "invalid-template.yml"
         )
 
 

@@ -2,13 +2,14 @@ import copy
 import re
 from string import Template
 from typing import List, Optional
-from verbum.clap import parser
-from verbum.config.config import Config
-from verbum.config.version_control import Matcher, Type as VcType
-from verbum.version import Version
-from verbum.source import SourceManager
-from verbum.version_control.git import Git
-from verbum.version_control.interface import VersionControl
+
+from .clap import parser
+from .config.config import Config
+from .config.version_control import Matcher, Type as VcType
+from .version import Version
+from .source import SourceManager
+from .version_control.git import Git
+from .version_control.interface import VersionControl
 
 VERSION = "0.0.0"
 

@@ -7,6 +7,7 @@ def main():
     except Exception as ex:
         # error only, without the stacktrace
         print(ex)
+        exit(1)
 
 
 if __name__ == "__main__":

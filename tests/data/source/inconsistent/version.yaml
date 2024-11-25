@@ -1,0 +1,7 @@
+version: 0.0.1
+
+template: "$major.$minor.$patch"
+
+source:
+  - file: ./main.go
+    template: const version = "$version"

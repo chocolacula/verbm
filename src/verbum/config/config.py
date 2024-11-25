@@ -31,7 +31,7 @@ class Config(BaseModel):
     version_control: Optional[VersionControl] = None
 
     @staticmethod
-    def from_file(path: str) -> Optional[Config]:
+    def from_file(path: str) -> Config:
         path = Config.__path_or_default(path)
 
         with open(path, "r") as f:
@@ -40,7 +40,7 @@ class Config(BaseModel):
             c = Config(**data)
             return c
 
-        return None
+        raise Exception(f"cannot load {path}")
 
     @staticmethod
     def __path_or_default(path: str | None) -> str:

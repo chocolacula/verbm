@@ -73,6 +73,7 @@ def run():
         v2.parse(args.new_version)
 
         report = f"version was set to {v2}"
+        # TODO add `suffix` argument
 
     elif args.command == "up":
         if args.component == "auto":

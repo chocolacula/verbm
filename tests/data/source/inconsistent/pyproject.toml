@@ -1,0 +1,7 @@
+[project]
+version = "0.0.0"
+name = "hello-world"
+readme = "README.md"
+license = { text = "Apache License (2.0)" }
+
+dependencies = []

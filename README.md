@@ -1,15 +1,13 @@
-# Verbum
-
 <p align="center">
-
-<img src="readme/logo.png" alt="drawing" />
-
-[![test](https://github.com/chocolacula/verbum/actions/workflows/test.yml/badge.svg)](https://github.com/chocolacula/verbum/actions/workflows/test.yml)
-[![mypy](https://github.com/chocolacula/verbum/actions/workflows/mypy.yml/badge.svg)](https://github.com/chocolacula/verbum/actions/workflows/mypy.yml)
-
+  <img src="readme/logo.png" alt="drawing" />
+</p>
+<h1 align="center">Verbum</h1>
+<p align="center">
+  <a href="https://github.com/chocolacula/verbum/actions/workflows/mypy.yml"><img src="https://github.com/chocolacula/verbum/actions/workflows/mypy.yml/badge.svg" alt="mypy"></a>
+  <a href="https://github.com/chocolacula/verbum/actions/workflows/test.yml"><img src="https://github.com/chocolacula/verbum/actions/workflows/test.yml/badge.svg" alt="test"></a>
 </p>
 
-language agnostic version bump
+Language agnostic version bump tool
 
 ## How to develop
 

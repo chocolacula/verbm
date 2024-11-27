@@ -1,12 +1,26 @@
 import os
 import unittest
 
-from src.verbum.source import Source
+from src.verbum.source import SourceManager
+from src.verbum.version import Version
+from src.verbum.config.config import Config
 
 
 class TestSource(unittest.TestCase):
     def test_consistent(self):
-        pass
+        c = Config.from_file("./tests/data/source/consistent/version.yaml")
+        sm = SourceManager(c.path, c.source)
+
+        v = Version(c.template, c.version)
+
+        self.assertTrue(sm.consistent(v))
+
+        c = Config.from_file("./tests/data/source/inconsistent/version.yaml")
+        sm = SourceManager(c.path, c.source)
+
+        v = Version(c.template, c.version)
+
+        self.assertFalse(sm.consistent(v))
 
     def test_replace(self):
         pass

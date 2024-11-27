@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from enum import Enum
 from typing import List, Optional
 import os
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 import yaml
 
 from .version_control import VersionControl

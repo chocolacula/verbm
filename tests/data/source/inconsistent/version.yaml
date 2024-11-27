@@ -5,3 +5,7 @@ template: "$major.$minor.$patch"
 source:
   - file: ./main.go
     template: const version = "$version"
+  - file: ./pyproject.toml
+    template: version = "$version"
+  - file: ./pyproject.toml
+    template: project(hello-reflection VERSION $version)

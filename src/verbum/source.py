@@ -46,7 +46,7 @@ class SourceManager:
 
         with open(path, "r+") as file:
             if file.read().find(str(version)) < 1:
-                print(f"file: {self.cfg_path} doesn't contain version: {version}")
+                print(f"file: {path} doesn't contain version: {version}")
                 return False
 
         return True

@@ -25,6 +25,8 @@ class TestConfig(unittest.TestCase):
             ValidationError, "template", Config.from_file, "./invalid/template.yml"
         )
 
+        os.chdir("../../..")
+
 
 if __name__ == "__main__":
     unittest.main()

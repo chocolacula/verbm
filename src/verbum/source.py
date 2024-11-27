@@ -3,8 +3,8 @@ import re
 from string import Template
 from typing import List
 
-from verbum.config.config import Source
-from verbum.version import Version
+from .config.config import Source
+from .version import Version
 
 
 class SourceManager:
@@ -24,15 +24,15 @@ class SourceManager:
         self.root = root
 
         self.sources = sources
+        for s in self.sources:
+            s.file = os.path.realpath(os.path.join(self.root, s.file))
 
     def consistent(self, version: Version) -> bool:
         if not self.__contains(self.cfg_path, version):
             return False
 
         for src in self.sources:
-            fn = os.path.join(self.root, src.file)
-
-            if not self.__contains(fn, version):
+            if not self.__contains(src.file, version):
                 return False
 
         return True
@@ -72,15 +72,13 @@ class SourceManager:
             file.write(content)
 
         for src in self.sources:
-            fn = os.path.join(self.root, src.file)
-
-            if not os.path.isfile(fn):
-                raise Exception(f"cannot find: {fn}")
+            if not os.path.isfile(src.file):
+                raise Exception(f"cannot find: {src.file}")
 
             old_str = Template(src.template).substitute(version=str(old_version))
             new_str = Template(src.template).substitute(version=str(new_version))
 
-            with open(fn, "r+") as file:
+            with open(src.file, "r+") as file:
                 content = file.read()
                 content = content.replace(old_str, new_str)
 

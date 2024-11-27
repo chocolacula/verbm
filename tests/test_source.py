@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from src.verbum.source import SourceManager
@@ -21,6 +20,13 @@ class TestSource(unittest.TestCase):
         v = Version(c.template, c.version)
 
         self.assertFalse(sm.consistent(v))
+
+        c = Config.from_file("./tests/data/source/invalid/version.yaml")
+        sm = SourceManager(c.path, c.source)
+
+        v = Version(c.template, c.version)
+
+        self.assertRaises(Exception, sm.consistent, v)
 
     def test_replace(self):
         pass

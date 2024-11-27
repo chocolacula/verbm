@@ -7,9 +7,9 @@ from src.verbum.config.config import Config
 
 class TestConfig(unittest.TestCase):
     def test_config(self):
-        os.chdir("tests/data/config")
+        root = "./tests/data/config"
 
-        valid_dir = "valid"
+        valid_dir = root + "/valid"
         filenames = next(os.walk(valid_dir), (None, None, []))[2]
 
         for filename in filenames:
@@ -18,14 +18,18 @@ class TestConfig(unittest.TestCase):
 
         self.assertRaises(Exception, Config.from_file)
 
-        self.assertRaisesRegex(  #
-            ValidationError, "ver", Config.from_file, "./invalid/version.yml"
+        self.assertRaisesRegex(
+            ValidationError,
+            "ver",
+            Config.from_file,
+            root + "/invalid/version.yml",
         )
-        self.assertRaisesRegex(  #
-            ValidationError, "template", Config.from_file, "./invalid/template.yml"
+        self.assertRaisesRegex(
+            ValidationError,
+            "template",
+            Config.from_file,
+            root + "/invalid/template.yml",
         )
-
-        os.chdir("../../..")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,10 @@
-version: 0.0.1
-
+version: 0.0.0
 template: "$major.$minor.$patch"
 
 source:
-  - file: ./main.go
+  - file: ./main.cpp
     template: const version = "$version"
+  - file: ./pyproject.toml
+    template: version = "$version"
+  - file: ./CMakeLists.txt
+    template: project(hello-reflection VERSION $version)

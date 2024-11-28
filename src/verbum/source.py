@@ -87,9 +87,4 @@ class SourceManager:
                 file.write(content)
 
     def files(self) -> List[str]:
-        all = [self.cfg_path]
-
-        for s in self.sources:
-            all.append(os.path.realpath(os.path.join(self.root, s.file)))
-
-        return all
+        return [self.cfg_path] + list(map(lambda x: x.file, self.sources))

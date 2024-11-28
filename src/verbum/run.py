@@ -78,6 +78,7 @@ def run():
     elif args.command == "up":
         if args.component == "auto":
             filters = list(map(re.compile, args.filter))
+
             tag = Template(cfg.version_control.tag).substitute(new_version=str(v))
 
             component = __to_component(

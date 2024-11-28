@@ -34,7 +34,7 @@ class Matcher(BaseModel):
 class Commit(BaseModel):
     username: Optional[str] = None
     email: Optional[str] = None
-    message: Optional[str] = None
+    message: str = "Version bumped from $version to $new_version"
 
 
 class Type(str, Enum):
@@ -46,5 +46,5 @@ class Type(str, Enum):
 class VersionControl(BaseModel):
     type: Type = Type.GIT
     matcher: Matcher = Matcher()
-    commit: Optional[Commit] = None
-    tag: Optional[str] = None
+    commit: Commit
+    tag: str = "v$new_version"

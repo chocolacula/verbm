@@ -34,7 +34,7 @@ class Git(VersionControl):
         # call("git", "describe", "--tags", "--abbrev=0")
         # call("git", "rev-list", "--max-parents=0", "HEAD")
 
-        hash = call("git", "rev-parse", from_tag)
+        hash = call("git", "rev-parse", from_tag).rstrip()
 
         out = call(
             "git",

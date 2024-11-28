@@ -27,7 +27,7 @@ class Config(BaseModel):
     version: str
     template: str
     source: List[Source] = []
-    version_control: Optional[VersionControl] = None
+    version_control: VersionControl
 
     @staticmethod
     def from_file(path: str) -> Config:

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List
 import os
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel
 import yaml
 
 from .version_control import VersionControl

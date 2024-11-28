@@ -1,8 +1,8 @@
 import re
 from typing import List, Optional
 
-from verbum.version_control.interface import VersionControl
-from verbum.version_control.call import call
+from .interface import VersionControl
+from .call import call
 
 
 class Git(VersionControl):

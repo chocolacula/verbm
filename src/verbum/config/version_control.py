@@ -45,6 +45,6 @@ class Type(str, Enum):
 
 class VersionControl(BaseModel):
     type: Type = Type.GIT
-    matcher: Matcher = Matcher()
-    commit: Commit
+    matcher: Matcher = Matcher.default()
+    commit: Commit = Commit()
     tag: str = "v$new_version"

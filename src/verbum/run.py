@@ -11,10 +11,14 @@ from .source import SourceManager
 from .version_control.git import Git
 from .version_control.interface import VersionControl
 
-VERSION = "0.0.0"
+VERSION = "0.0.1"
 
 
 def __to_component(commits: List[str], matcher: Matcher) -> Optional[str]:
+    print("Commits to analyse:\n")
+    for commit in commits:
+        print(commit)
+
     for commit in commits:
         for r in matcher.major:
             if re.match(r, commit):
@@ -84,9 +88,9 @@ def run():
             component = __to_component(
                 vc.log(tag, filters), cfg.version_control.matcher
             )
-
             if component == None:
-                raise Exception("nothing to up")
+                print("\nnothing to up")
+                exit(0)
             else:
                 print(f"\ncomponent to up: {component}")
                 args.component = component

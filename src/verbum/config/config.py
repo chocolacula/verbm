@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import List, Optional
 import os
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 import yaml
 
 from .version_control import VersionControl
@@ -27,7 +27,7 @@ class Config(BaseModel):
     version: str
     template: str
     source: List[Source] = []
-    version_control: VersionControl
+    version_control: VersionControl = VersionControl()
 
     @staticmethod
     def from_file(path: str) -> Config:

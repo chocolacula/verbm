@@ -31,7 +31,6 @@ class Git(VersionControl):
 
     def log(self, from_tag: str, file_filters: List[re.Pattern]) -> List[str]:
         # useful commands:
-        # call("git", "describe", "--tags", "--abbrev=0")
         # call("git", "rev-list", "--max-parents=0", "HEAD")
 
         hash = call("git", "rev-parse", from_tag).rstrip()
@@ -45,9 +44,9 @@ class Git(VersionControl):
             "--name-only",
             f"{hash}^..HEAD",
         )
-        return self.__extract(out, file_filters)
+        return self.__filter(out, file_filters)
 
-    def __extract(self, data: str, file_filters: List[re.Pattern]) -> List[str]:
+    def __filter(self, data: str, file_filters: List[re.Pattern]) -> List[str]:
         # parse data to sequence ["", commit, files, commit, files, ...]
         chunks = data.split(self.__delim)
 
@@ -71,3 +70,21 @@ class Git(VersionControl):
                 commits.extend(lines)
 
         return commits
+
+    def last_tag(self) -> Optional[str]:
+        try:
+            return call("git", "describe", "--tags", "--abbrev=0").rstrip()
+        except:
+            return None
+
+    def username(self) -> Optional[str]:
+        try:
+            return call("git", "config", "user.name").rstrip()
+        except:
+            return None
+
+    def email(self) -> Optional[str]:
+        try:
+            return call("git", "config", "user.email").rstrip()
+        except:
+            return None

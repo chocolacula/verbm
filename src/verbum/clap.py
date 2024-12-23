@@ -26,6 +26,12 @@ def parser() -> ArgumentParser:
     )
 
 
+    _ = sub.add_parser(
+        "init",
+        description=f"create a default configuration file",
+    )
+
+
     pget = sub.add_parser(
         "get",
         description=f"print current version",

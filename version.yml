@@ -1,6 +1,15 @@
+# main field, required
 version: 0.0.1
-template: "$major.$minor.$patch"
 
+# template is needed for validation and splitting into components
+# $major   integer, required
+# $minor   integer, recommended
+# $patch   integer, recommended
+# $suffix  string,  optional
+template: $major.$minor.$patch$suffix
+
+# a list of source code files and corresponding patterns for version updates
+# use `$version` as a placeholder
 source:
   - file: ./src/verbum/run.py
     template: VERSION = "$version"
@@ -8,6 +17,29 @@ source:
     template: version = "$version"
 
 version_control:
+  # default and single type, meaningless at this point
+  # type: git
+
   commit:
+    # the committer's username and email if different from the commit author from `git config`
+    username: Maxim Voloshin
+    email: mvolloshin@gmail.com
+
+    # commit message template, use `$version` and `$new_version` as placeholders, optional
     message: Version bumped from $version to $new_version
+
+  # supports `$version` and `$new_version` placeholders the same as commit message, optional
   tag: v$new_version
+
+  # default regex matchers for different version componets, optional
+  matcher:
+    major:
+      - '^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?!: '
+      - '^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?!: '
+      - '^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?!: '
+      - '(?i)^(\* ?)?BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: '
+    minor:
+      - '^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?: '
+    patch:
+      - '^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?: '
+      - '^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?: '

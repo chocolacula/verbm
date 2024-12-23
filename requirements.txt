@@ -1,5 +1,6 @@
 annotated-types==0.7.0
 build==1.2.2
+coverage==7.6.9
 mypy==1.13.0
 mypy-extensions==1.0.0
 packaging==24.2

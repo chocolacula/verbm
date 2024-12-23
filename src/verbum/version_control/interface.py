@@ -4,6 +4,10 @@ from typing import List, Optional
 
 
 class VersionControl(ABC):
+    """
+    An abstraction over git, mercurial and other version control systems
+    """
+
     @abstractmethod
     def add(self, *files: str):
         pass
@@ -23,3 +27,15 @@ class VersionControl(ABC):
     @abstractmethod
     def log(self, from_tag: str, file_filters: List[re.Pattern]) -> List[str]:
         return []
+
+    @abstractmethod
+    def last_tag(self) -> Optional[str]:
+        return None
+
+    @abstractmethod
+    def username(self) -> Optional[str]:
+        return None
+
+    @abstractmethod
+    def email(self) -> Optional[str]:
+        return None

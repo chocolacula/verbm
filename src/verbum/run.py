@@ -5,11 +5,12 @@ from typing import List, Optional
 
 from .clap import parser
 from .config.config import Config
-from .config.version_control import Matcher, Type as VcType
+from .config.version_control import Matcher
 from .version import Version
 from .source import SourceManager
 from .version_control.git import Git
 from .version_control.interface import VersionControl
+from .init import init_project
 
 VERSION = "0.0.1"
 
@@ -41,14 +42,17 @@ def run():
     # parse command line arguments
     args = parser().parse_args()
 
+    vc = Git()
+    if args.command == "init":
+        init_project(".", vc)
+
     if args.version:
         print(VERSION)
         exit(0)
 
     cfg = Config.from_file(args.file)
 
-    v = Version(format=cfg.template)
-    v.parse(cfg.version)
+    v = Version(format=cfg.template, version=cfg.version)
 
     if args.command == "get":
         print(v)
@@ -67,17 +71,10 @@ def run():
     v2 = copy.copy(v)
     report = ""
 
-    vc: VersionControl
-    if cfg.version_control.type == VcType.GIT:  # always true for now
-        vc = Git()
-    else:
-        raise Exception("unexpected version control type")
-
     if args.command == "set":
         v2.parse(args.new_version)
 
         report = f"version was set to {v2}"
-        # TODO add `suffix` argument
 
     elif args.command == "up":
         if args.component == "auto":
@@ -119,8 +116,8 @@ def run():
 
         report = f"version downgraded to {v2}"
 
-    print(report)
     source.replace(v, v2)
+    print(report)
 
     # almost done, commit and push work
     if args.commit:

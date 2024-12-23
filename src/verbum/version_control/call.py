@@ -2,8 +2,11 @@ import subprocess
 from typing import IO, List, cast
 
 
-# call command with arguments and return stdout or raise exception
 def call(command: str, *args) -> str:
+    """
+    call command with arguments and return stdout or raise exception
+    """
+
     p = subprocess.Popen(
         args=[command] + [a for a in args],
         stdout=subprocess.PIPE,

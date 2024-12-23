@@ -10,7 +10,7 @@ from .version import Version
 class SourceManager:
     """
     SourceManager is responsible for updating versions across source files.
-    It knows absolute path to each file including the config and can return them.
+    It keeps track of the absolute path to each file, including the configuration file, and can return these paths when needed.
     """
 
     cfg_path: str
@@ -56,9 +56,9 @@ class SourceManager:
             content = file.read()
 
             # space tolerant before and after the colon
-            regex = f"version[ ]*:[ \n]*{old_version}$"
+            regex = re.compile(f"version *:[ \n]*{re.escape(str(old_version))}")
 
-            m = re.match(regex, content, flags=re.MULTILINE)
+            m = re.search(regex, content)
             if not m:
                 raise Exception("cannot match version in the config file")
 

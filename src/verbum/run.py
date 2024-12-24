@@ -12,7 +12,7 @@ from .version_control.git import Git
 from .version_control.interface import VersionControl
 from .init import init_project
 
-VERSION = "0.0.1"
+VERSION = "0.1.0"
 
 
 def __to_component(commits: List[str], matcher: Matcher) -> Optional[str]:

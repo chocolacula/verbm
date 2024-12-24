@@ -1,5 +1,5 @@
 # main field, required
-version: 0.0.1
+version: 0.1.0
 
 # template is needed for validation and splitting into components
 # $major   integer, required

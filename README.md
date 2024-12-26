@@ -3,10 +3,12 @@
 </p>
 <h1 align="center">Verbum</h1>
 <p align="center">
-  <a href="https://github.com/chocolacula/verbum/actions/workflows/test.yml"><img src="https://github.com/chocolacula/verbum/actions/workflows/test.yml/badge.svg" alt="test" /></a>
   <a href="https://github.com/chocolacula/verbum/actions/workflows/mypy.yml"><img src="https://github.com/chocolacula/verbum/actions/workflows/mypy.yml/badge.svg" alt="mypy" /></a>
-  <a href="https://docs.python.org/3/whatsnew/3.9.html"><img src="https://img.shields.io/badge/Python-3.9-blue" alt="python3.9" /></a>
+  <a href="https://github.com/chocolacula/verbum/actions/workflows/test.yml"><img src="https://github.com/chocolacula/verbum/actions/workflows/test.yml/badge.svg" alt="test" /></a>
   <a href="https://codecov.io/gh/chocolacula/verbum"><img src="https://codecov.io/gh/chocolacula/verbum/graph/badge.svg?token=KBSAZR4JKI" alt="codecov" /></a>
+  <a href="https://docs.python.org/3/whatsnew/3.9.html"><img src="https://img.shields.io/badge/Python-3.9-blue?logo=python&logoColor=fff" alt="python3.9" /></a>
+  <a href="https://pypi.org/project/verbum"><img src="https://img.shields.io/pypi/v/verbum?logo=pypi&logoColor=fff" alt="pypi" /></a>
+  <a href="https://pypi.org/project/verbum"><img src="https://img.shields.io/pypi/dm/verbum" alt="downloads" /></a>
 </p>
 
 Language agnostic **VER**sion **BUM**p tool that simplifies routine version management. Its capabilities include:
@@ -25,7 +27,7 @@ It similar to [bumpr](https://github.com/noirbizarre/bumpr), [tbump](https://git
 Make sure Python 3.9 or later, along with `pip` or `pipx`, is installed.
 
 ```sh
-pip install git+https://github.com/chocolacula/verbum.git
+pipx install verbum
 ```
 
 ## Usage

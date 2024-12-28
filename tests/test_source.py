@@ -3,9 +3,9 @@ import os
 from typing import Tuple
 import unittest
 
-from src.verbum.source import SourceManager
-from src.verbum.version import Version
-from src.verbum.config.config import Config
+from src.verbm.source import SourceManager
+from src.verbm.version import Version
+from src.verbm.config.config import Config
 
 
 class TestSource(unittest.TestCase):

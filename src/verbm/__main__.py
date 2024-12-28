@@ -1,4 +1,4 @@
-from verbum.run import run
+from verbm.run import run
 
 
 def main():

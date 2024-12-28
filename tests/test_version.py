@@ -1,5 +1,5 @@
 import unittest
-from src.verbum.version import Version
+from src.verbm.version import Version
 
 
 class TestVersion(unittest.TestCase):

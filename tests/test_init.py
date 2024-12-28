@@ -1,7 +1,7 @@
 import os
 import unittest
-from src.verbum.init import init_project
-from src.verbum.version_control.git import Git
+from src.verbm.init import init_project
+from src.verbm.version_control.git import Git
 
 
 class TestInit(unittest.TestCase):

@@ -23,8 +23,8 @@ jobs:
           python-version: "3.9"
           cache: pip
 
-      - name: Install verbum
+      - name: Install verbm
         run: pip install .
 
       - name: Bump version
-        run: verbum up auto --commit --tag --push
+        run: verbm up auto --commit --tag --push

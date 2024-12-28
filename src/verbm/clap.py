@@ -20,7 +20,7 @@ def parser() -> ArgumentParser:
     # fmt: off
     p.add_argument(
         "-v", "--version",
-        help="print verbum version",
+        help="print verbm version",
         action="store_true",
         default=False
     )

@@ -1,5 +1,5 @@
 import unittest
-from src.verbum.version_control.call import call
+from src.verbm.version_control.call import call
 
 
 class TestGit(unittest.TestCase):

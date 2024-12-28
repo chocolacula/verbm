@@ -2,7 +2,7 @@ import os
 import unittest
 
 from pydantic import ValidationError
-from src.verbum.config.config import Config
+from src.verbm.config.config import Config
 
 
 class TestConfig(unittest.TestCase):

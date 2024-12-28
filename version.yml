@@ -11,7 +11,7 @@ template: $major.$minor.$patch$suffix
 # a list of source code files and corresponding patterns for version updates
 # use `$version` as a placeholder
 source:
-  - file: ./src/verbum/run.py
+  - file: ./src/verbm/run.py
     template: VERSION = "$version"
   - file: ./pyproject.toml
     template: version = "$version"

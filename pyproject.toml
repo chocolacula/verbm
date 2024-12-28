@@ -1,6 +1,6 @@
 [project]
 version = "0.1.0"
-name = "verbum"
+name = "verbm"
 description = "Language agnostic version bump tool"
 requires-python = ">=3.9"
 readme = "README.md"
@@ -15,10 +15,10 @@ classifiers = [
 dependencies = ["PyYAML", "pydantic"]
 
 [project.urls]
-Homepage = "https://github.com/chocolacula/verbum"
+Homepage = "https://github.com/chocolacula/verbm"
 
 [project.scripts]
-verbum = "verbum.__main__:main"
+verbm = "verbm.__main__:main"
 
 [build-system]
 requires = ["hatchling"]

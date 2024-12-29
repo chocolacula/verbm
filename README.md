@@ -8,7 +8,7 @@
   <a href="https://codecov.io/gh/chocolacula/verbm"><img src="https://codecov.io/gh/chocolacula/verbm/graph/badge.svg?token=KBSAZR4JKI" alt="codecov" /></a>
   <a href="https://docs.python.org/3/whatsnew/3.9.html"><img src="https://img.shields.io/badge/Python-3.9-blue?logo=python&logoColor=fff" alt="python3.9" /></a>
   <a href="https://pypi.org/project/verbm"><img src="https://img.shields.io/pypi/v/verbm?logo=pypi&logoColor=fff" alt="pypi" /></a>
-  <a href="https://pypi.org/project/verbm"><img src="https://img.shields.io/pypi/dm/verbm" alt="downloads" /></a>
+  <a href="https://pypi.org/project/verbm"><img src="https://img.shields.io/pypi/dd/verbm" alt="downloads" /></a>
 </p>
 
 Language agnostic **VER**sion **B**u**M**p tool that simplifies routine version management. Its capabilities include:

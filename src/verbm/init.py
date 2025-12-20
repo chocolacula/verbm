@@ -3,6 +3,7 @@ import re
 from typing import Tuple
 from .version_control.interface import VersionControl
 from .config.config import DEFAULT_FILENAMES
+from .template import TEMPLATE
 
 
 def __version(vc: VersionControl) -> Tuple[str, str, str]:
@@ -40,51 +41,9 @@ def init_project(dir: str, vc: VersionControl):
         print("cannot get the email, use a placeholder")
         email = "john.doe@example.com"
 
-    yaml = f"""# main field, required
-version: {major}.{minor}.{patch}
-
-# template is needed for validation and splitting into components
-# $major   integer, required
-# $minor   integer, recommended
-# $patch   integer, recommended
-# $suffix  string,  optional
-template: $major.$minor.$patch$suffix
-
-# a list of source code files and corresponding patterns for version updates
-# use `$version` as a placeholder
-source:
-  # - file: ./main.txt
-  #   template: VERSION = "$version"
-
-
-version_control:
-  # default and single type, meaningless at this point
-  # type: git
-
-  commit:
-    # the committer's username and email if different from the commit author from `git config`
-    username: {username}
-    email: {email}
-
-    # commit message template, use `$version` and `$new_version` as placeholders, optional
-    message: Version bumped from $version to $new_version
-
-  # supports `$version` and `$new_version` placeholders the same as commit message, optional
-  tag: v$new_version
-
-  # default regex matchers for different version componets, optional
-  matcher:
-    major:
-      - '^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?!: '
-      - '^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?!: '
-      - '^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?!: '
-      - '(?i)^(\* ?)?BREAKING(?:\s*CHANGE)? ?(\(( ?\w)+\))?: '
-    minor:
-      - '^(\* ?)?feat(ure)? ?(\(( ?\w)+\))?: '
-    patch:
-      - '^(\* ?)?(hot)?fix ?(\(( ?\w)+\))?: '
-      - '^(\* ?)?refactor(ing)? ?(\(( ?\w)+\))?: '
-"""
+    yaml = TEMPLATE.format(
+        major=major, minor=minor, patch=patch, username=username, email=email
+    )
 
     with open(path.join(dir, DEFAULT_FILENAMES[0]), "w") as file:
         file.write(yaml)

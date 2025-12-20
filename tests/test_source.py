@@ -18,10 +18,10 @@ class TestSource(unittest.TestCase):
             return sm, v
 
         sm, v = prepare("./tests/data/source/consistent/version.yaml")
-        self.assertTrue(sm.consistent(v))
+        self.assertTrue(sm.consistent(str(v)))
 
         sm, v = prepare("./tests/data/source/inconsistent/version.yaml")
-        self.assertFalse(sm.consistent(v))
+        self.assertFalse(sm.consistent(str(v)))
 
         sm, v = prepare("./tests/data/source/invalid/version.yaml")
         self.assertRaises(Exception, sm.consistent, v)
@@ -31,16 +31,16 @@ class TestSource(unittest.TestCase):
         sm = SourceManager(c.path, c.source)
 
         v1 = Version(c.template, c.version)
-        self.assertTrue(sm.consistent(v1))
+        self.assertTrue(sm.consistent(str(v1)))
 
         v2 = copy.copy(v1)
         v2.patch += 1
 
-        sm.replace(v1, v2)
-        self.assertTrue(sm.consistent(v2))
+        sm.replace(str(v1), str(v2))
+        self.assertTrue(sm.consistent(str(v2)))
 
-        sm.replace(v2, v1)  # revert back
-        self.assertTrue(sm.consistent(v1))
+        sm.replace(str(v2), str(v1))  # revert back
+        self.assertTrue(sm.consistent(str(v1)))
 
     def test_files(self):
         c = Config.from_file("./tests/data/source/consistent/version.yaml")

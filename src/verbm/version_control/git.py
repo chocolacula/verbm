@@ -77,6 +77,12 @@ class Git(VersionControl):
         except:
             return None
 
+    def current_sha(self) -> Optional[str]:
+        try:
+            return call("git", "rev-parse", "HEAD").rstrip()
+        except:
+            return None
+
     def username(self) -> Optional[str]:
         try:
             return call("git", "config", "user.name").rstrip()

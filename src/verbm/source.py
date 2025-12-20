@@ -10,7 +10,8 @@ from .version import Version
 class SourceManager:
     """
     SourceManager is responsible for updating versions across source files.
-    It keeps track of the absolute path to each file, including the configuration file, and can return these paths when needed.
+    It keeps track of the absolute path to each file, including the configuration file,
+    and can return these paths when needed.
     """
 
     cfg_path: str
@@ -27,7 +28,7 @@ class SourceManager:
         for s in self.sources:
             s.file = os.path.realpath(os.path.join(self.root, s.file))
 
-    def consistent(self, version: Version) -> bool:
+    def consistent(self, version: str) -> bool:
         if not self.__contains(self.cfg_path, version):
             return False
 
@@ -37,7 +38,7 @@ class SourceManager:
 
         return True
 
-    def __contains(self, path: str, version: Version) -> bool:
+    def __contains(self, path: str, version: str) -> bool:
         """
         Checks the file with corresponding path contains specified version
         """
@@ -45,25 +46,25 @@ class SourceManager:
             raise Exception(f"cannot find: {path}")
 
         with open(path, "r+") as file:
-            if file.read().find(str(version)) < 1:
+            if file.read().find(version) < 1:
                 print(f"file: {path} doesn't contain version: {version}")
                 return False
 
         return True
 
-    def replace(self, old_version: Version, new_version: Version):
+    def replace(self, old_version: str, new_version: str):
         with open(self.cfg_path, "r+") as file:
             content = file.read()
 
             # space tolerant before and after the colon
-            regex = re.compile(f"version *:[ \n]*{re.escape(str(old_version))}")
+            regex = re.compile(f"version *:[ \n]*{re.escape(old_version)}")
 
             m = re.search(regex, content)
             if not m:
                 raise Exception("cannot match version in the config file")
 
             old_str = m.group(0)
-            new_str = old_str.replace(str(old_version), str(new_version))
+            new_str = old_str.replace(old_version, new_version)
 
             content = content.replace(old_str, new_str)
 
@@ -75,8 +76,8 @@ class SourceManager:
             if not os.path.isfile(src.file):
                 raise Exception(f"cannot find: {src.file}")
 
-            old_str = Template(src.template).substitute(version=str(old_version))
-            new_str = Template(src.template).substitute(version=str(new_version))
+            old_str = Template(src.template).substitute(version=old_version)
+            new_str = Template(src.template).substitute(version=new_version)
 
             with open(src.file, "r+") as file:
                 content = file.read()

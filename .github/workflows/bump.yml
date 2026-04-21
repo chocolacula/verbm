@@ -2,7 +2,7 @@ name: bump
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 permissions:
   contents: write
@@ -17,6 +17,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0 # we need all history to get tags and analyze commits
+          token: ${{ secrets.RELEASE_PAT }}
 
       - name: Install verbm
         run: pipx install .

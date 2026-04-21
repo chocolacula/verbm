@@ -30,10 +30,10 @@ class Git(VersionControl):
             call("git", "push", "--tags")
 
     def log(self, from_tag: str, file_filters: List[re.Pattern]) -> List[str]:
-        # useful commands:
-        # call("git", "rev-list", "--max-parents=0", "HEAD")
-
-        hash = call("git", "rev-parse", from_tag).rstrip()
+        try:
+            rev = call("git", "rev-parse", from_tag).rstrip() + "^..HEAD"
+        except:
+            rev = ""
 
         out = call(
             "git",
@@ -42,7 +42,7 @@ class Git(VersionControl):
             "--decorate=short",
             f"--pretty=format:{self.__delim}%s%n%b{self.__delim}",
             "--name-only",
-            f"{hash}^..HEAD",
+            rev,
         )
         return self.__filter(out, file_filters)
 

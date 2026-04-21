@@ -8,7 +8,7 @@ def call(command: str, *args) -> str:
     """
 
     p = subprocess.Popen(
-        args=[command] + [a for a in args],
+        args=[command] + [a for a in args if a],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )

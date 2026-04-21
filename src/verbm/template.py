@@ -1,5 +1,5 @@
 # a raw string with placeholders for `format()` used as a template for the initial configuration file
-TEMPLATE = """# main field, required
+TEMPLATE = r"""# main field, required
 version: {major}.{minor}.{patch}
 
 # template is needed for validation and splitting into components

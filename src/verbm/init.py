@@ -7,7 +7,7 @@ from .template import TEMPLATE
 
 
 def __version(vc: VersionControl) -> Tuple[str, str, str]:
-    tm = re.compile("v?([0-9]+)\.([0-9]+)\.([0-9]+)")
+    tm = re.compile(r"v?([0-9]+)\.([0-9]+)\.([0-9]+)")
 
     if (t := vc.last_tag()) is not None:
         m = re.match(tm, t)

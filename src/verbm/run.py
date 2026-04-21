@@ -59,7 +59,7 @@ def run():
         exit(0)
 
     source = SourceManager(cfg.path, cfg.source)
-    if not source.consistent(v):
+    if not source.consistent(str(v)):
         raise Exception("version is not consistent accross all files")
 
     if args.command == "validate":
@@ -116,7 +116,7 @@ def run():
 
         report = f"version downgraded to {v2}"
 
-    source.replace(v, v2)
+    source.replace(str(v), str(v2))
     print(report)
 
     # almost done, commit and push work

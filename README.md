@@ -83,15 +83,3 @@ verbm up auto --filter '/src/subproject/.*' '/src/common/.*'
 ```
 
 And files that have been changed but do not match the specified regex will be excluded from the log.
-
-## Contributing
-
-If you are not familiar with Python, I recommend create a virtual environment first, then install dev dependencies:
-
-```sh
-python3 -m venv .venv
-
-source .venv/bin/activate
-
-pip install -r requirements.txt
-```

@@ -1,15 +1,15 @@
 from argparse import ArgumentParser
 
 
-def __add_file(p: ArgumentParser):
+def _add_file(p: ArgumentParser):
     p.add_argument("-f", "--file", help="specify configuration file")
 
 
-def __add_write(p: ArgumentParser):
+def _add_write(p: ArgumentParser):
     p.add_argument("-c", "--commit", help="commit changes", action="store_true")
     p.add_argument("-t", "--tag", help="add a tag with version", action="store_true")
     p.add_argument("-p", "--push", help="push changes", action="store_true")
-    __add_file(p)
+    _add_file(p)
 
 
 def parser() -> ArgumentParser:
@@ -36,14 +36,14 @@ def parser() -> ArgumentParser:
         "validate",
         description="check that all files contains the same version"
     )
-    __add_file(pval)
+    _add_file(pval)
 
 
     pget = sub.add_parser(
         "get",
         description=f"print current version",
     )
-    __add_file(pget)
+    _add_file(pget)
 
 
     pset = sub.add_parser(
@@ -55,7 +55,7 @@ def parser() -> ArgumentParser:
         help="semantic version",
         type=str
     )
-    __add_write(pset)
+    _add_write(pset)
 
 
     version_components = ["major", "minor", "patch"]
@@ -77,7 +77,7 @@ def parser() -> ArgumentParser:
         default=[],
         help="optional regex file filter for a commit",
     )
-    __add_write(pup)
+    _add_write(pup)
 
 
     pdown = sub.add_parser(
@@ -90,7 +90,7 @@ def parser() -> ArgumentParser:
         type=str,
         choices=version_components,
     )
-    __add_write(pdown)
+    _add_write(pdown)
     # fmt: on
 
     return p

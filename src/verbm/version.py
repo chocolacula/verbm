@@ -14,8 +14,8 @@ class Version:
     patch: int = 0
     suffix: Optional[str] = None
 
-    __format: str
-    __regex: re.Pattern
+    _format: str
+    _regex: re.Pattern
 
     def __init__(self, format: str, version: str):
         """
@@ -29,13 +29,13 @@ class Version:
             major="([0-9]+)", minor="([0-9]+)?", patch="([0-9]+)?", suffix="(.+)?"
         )
 
-        self.__format = format
-        self.__regex = re.compile(f"^{regex}$")
+        self._format = format
+        self._regex = re.compile(f"^{regex}$")
 
         self.parse(version)
 
     def __str__(self) -> str:
-        return Template(self.__format).substitute(
+        return Template(self._format).substitute(
             major=self.major,
             minor=self.minor,
             patch=self.patch,
@@ -44,14 +44,14 @@ class Version:
 
     def parse(self, version: str):
         # validate first
-        m = re.match(self.__regex, version)
+        m = re.match(self._regex, version)
         if not m:
             raise Exception(
-                f"version: '{version}' and template: '{self.__format}' don't match each other"
+                f"version: '{version}' and template: '{self._format}' don't match each other"
             )
 
         # keep order of keywords
-        placeholders = re.findall(r"\$(\w+)", self.__format)
+        placeholders = re.findall(r"\$(\w+)", self._format)
 
         if len(m.groups()) != len(placeholders):
             raise Exception(f"not enough components in: {version}")

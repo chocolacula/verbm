@@ -15,7 +15,7 @@ from .init import init_project
 VERSION = "1.0.1"
 
 
-def __to_component(commits: List[str], matcher: Matcher) -> Optional[str]:
+def _to_component(commits: List[str], matcher: Matcher) -> Optional[str]:
     print("Commits to analyse:\n")
     for commit in commits:
         print(commit)
@@ -82,9 +82,7 @@ def run():
 
             tag = Template(cfg.version_control.tag).substitute(new_version=str(v))
 
-            component = __to_component(
-                vc.log(tag, filters), cfg.version_control.matcher
-            )
+            component = _to_component(vc.log(tag, filters), cfg.version_control.matcher)
             if component == None:
                 print("\nnothing to up")
                 exit(0)

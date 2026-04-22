@@ -6,7 +6,7 @@
   <a href="https://github.com/chocolacula/verbm/actions/workflows/mypy.yml"><img src="https://github.com/chocolacula/verbm/actions/workflows/mypy.yml/badge.svg" alt="mypy" /></a>
   <a href="https://github.com/chocolacula/verbm/actions/workflows/test.yml"><img src="https://github.com/chocolacula/verbm/actions/workflows/test.yml/badge.svg" alt="test" /></a>
   <a href="https://codecov.io/gh/chocolacula/verbm"><img src="https://codecov.io/gh/chocolacula/verbm/graph/badge.svg?token=KBSAZR4JKI" alt="codecov" /></a>
-  <a href="https://docs.python.org/3/whatsnew/3.9.html"><img src="https://img.shields.io/badge/Python-3.9-blue?logo=python&logoColor=fff" alt="python3.9" /></a>
+  <a href="https://docs.python.org/3/whatsnew/3.10.html"><img src="https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=fff" alt="python3.10" /></a>
   <a href="https://pypi.org/project/verbm"><img src="https://img.shields.io/pypi/v/verbm?logo=pypi&logoColor=fff" alt="pypi" /></a>
   <a href="https://pypi.org/project/verbm"><img src="https://img.shields.io/pypi/dd/verbm" alt="downloads" /></a>
 </p>

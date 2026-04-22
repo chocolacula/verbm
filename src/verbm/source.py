@@ -29,16 +29,16 @@ class SourceManager:
             s.file = os.path.realpath(os.path.join(self.root, s.file))
 
     def consistent(self, version: str) -> bool:
-        if not self.__contains(self.cfg_path, version):
+        if not self._contains(self.cfg_path, version):
             return False
 
         for src in self.sources:
-            if not self.__contains(src.file, version):
+            if not self._contains(src.file, version):
                 return False
 
         return True
 
-    def __contains(self, path: str, version: str) -> bool:
+    def _contains(self, path: str, version: str) -> bool:
         """
         Checks the file with corresponding path contains specified version
         """

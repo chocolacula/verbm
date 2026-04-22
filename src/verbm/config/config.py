@@ -30,8 +30,8 @@ class Config(BaseModel):
     version_control: VersionControl = VersionControl()
 
     @staticmethod
-    def from_file(path: str) -> Config:
-        path = Config.__path_or_default(path)
+    def from_file(path: str | None) -> Config:
+        path = Config._path_or_default(path)
 
         with open(path, "r") as f:
             data = yaml.safe_load(f)
@@ -39,10 +39,8 @@ class Config(BaseModel):
             c = Config(**data)
             return c
 
-        raise Exception(f"cannot load {path}")
-
     @staticmethod
-    def __path_or_default(path: str | None) -> str:
+    def _path_or_default(path: str | None) -> str:
         if path is not None:
             if os.path.isfile(path):
                 return path

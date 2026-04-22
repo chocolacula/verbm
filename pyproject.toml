@@ -2,7 +2,7 @@
 version = "1.0.1"
 name = "verbm"
 description = "Language agnostic version bump tool"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 readme = "README.md"
 license = { text = "Apache License (2.0)" }
 authors = [{ name = "Maxim Voloshin", email = "mvolloshin@gmail.com" }]

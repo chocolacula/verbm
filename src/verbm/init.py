@@ -6,7 +6,7 @@ from .config.config import DEFAULT_FILENAMES
 from .template import TEMPLATE
 
 
-def __version(vc: VersionControl) -> Tuple[str, str, str]:
+def _version(vc: VersionControl) -> Tuple[str, str, str]:
     tm = re.compile(r"v?([0-9]+)\.([0-9]+)\.([0-9]+)")
 
     if (t := vc.last_tag()) is not None:
@@ -29,7 +29,7 @@ def init_project(dir: str, vc: VersionControl):
                 f"directory '{dir}' contains {fn}, the project is already initialized"
             )
 
-    major, minor, patch = __version(vc)
+    major, minor, patch = _version(vc)
 
     username = vc.username()
     if not username:

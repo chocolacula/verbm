@@ -6,7 +6,7 @@ from .call import call
 
 
 class Git(VersionControl):
-    __delim = ">+>:+-\n"
+    _delim = ">+>:+-\n"
 
     def add(self, *files: str):
         call("git", "add", *files)
@@ -40,15 +40,15 @@ class Git(VersionControl):
             "--no-pager",
             "log",
             "--decorate=short",
-            f"--pretty=format:{self.__delim}%s%n%b{self.__delim}",
+            f"--pretty=format:{self._delim}%s%n%b{self._delim}",
             "--name-only",
             rev,
         )
-        return self.__filter(out, file_filters)
+        return self._filter(out, file_filters)
 
-    def __filter(self, data: str, file_filters: List[re.Pattern]) -> List[str]:
+    def _filter(self, data: str, file_filters: List[re.Pattern]) -> List[str]:
         # parse data to sequence ["", commit, files, commit, files, ...]
-        chunks = data.split(self.__delim)
+        chunks = data.split(self._delim)
 
         commits: List[str] = []
 
